@@ -19,7 +19,6 @@ import com.ailing.ratetimelimiter.adapter.RateTimeLimiterInvoker;
 public class SimpleRateTimeLimiterInvoker implements RateTimeLimiterInvoker {
 	protected final Logger logger = Logger.getLogger(getClass());
 
-	@Override
 	public <T> T invokehandler(Object param) {
 		
 		return null;

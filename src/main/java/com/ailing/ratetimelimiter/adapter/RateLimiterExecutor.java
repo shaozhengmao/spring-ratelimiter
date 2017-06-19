@@ -5,9 +5,9 @@
  */
 package com.ailing.ratetimelimiter.adapter;
 
-import java.util.concurrent.TimeUnit;
-
 import com.ailing.ratetimelimiter.config.RateLimitState;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  *限流措施实现者接口
@@ -17,17 +17,17 @@ import com.ailing.ratetimelimiter.config.RateLimitState;
  * @version 1.0
  */
 public interface RateLimiterExecutor {
-	public boolean isLimitOpen(String serviceName);
+	boolean isLimitOpen(String serviceName);
 
-	public RateLimitState tryAcquire(String serviceName);
+	RateLimitState tryAcquire(String serviceName);
 
-	public RateLimitState tryAcquire(String serviceName, int permits);
+	RateLimitState tryAcquire(String serviceName, int permits);
 
-	public RateLimitState tryAcquire(String serviceName, long timeout, TimeUnit unit);
+	RateLimitState tryAcquire(String serviceName, long timeout, TimeUnit unit);
 
-	public RateLimitState tryAcquire(String serviceName, int permits, long timeout, TimeUnit unit);
+	RateLimitState tryAcquire(String serviceName, int permits, long timeout, TimeUnit unit);
 
-	public void acquire(String serviceName);
+	void acquire(String serviceName);
 
-	public void acquire(String serviceName, int permits);
+	void acquire(String serviceName, int permits);
 }

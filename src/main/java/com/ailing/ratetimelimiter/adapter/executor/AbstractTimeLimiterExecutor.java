@@ -5,15 +5,6 @@
  */
 package com.ailing.ratetimelimiter.adapter.executor;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.ailing.ratetimelimiter.RateTimeCreatingBeanFactory;
 import com.ailing.ratetimelimiter.adapter.ExecutorServiceProvider;
 import com.ailing.ratetimelimiter.adapter.RateTimeLimiterInvoker;
@@ -23,8 +14,17 @@ import com.ailing.ratetimelimiter.config.RateTimeConfigurer;
 import com.ailing.ratetimelimiter.config.TimeConfig;
 import com.ailing.ratetimelimiter.exception.RatimeLimiterException;
 import com.ailing.ratetimelimiter.util.PreconditionUtil;
-import com.hs.common.utils.GetterUtil;
-import static com.ailing.ratetimelimiter.util.PreconditionUtil.*;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import static com.ailing.ratetimelimiter.util.PreconditionUtil.checkArgument;
+import static com.ailing.ratetimelimiter.util.PreconditionUtil.checkNotNull;
 
 /**
  *超时机制重新类
@@ -45,7 +45,6 @@ public abstract class AbstractTimeLimiterExecutor implements TimeLimiterExecutor
 	/**
 	 * 判断是否开启超时机制
 	 */
-	@Override
 	public boolean isLimitOpen(String serviceName) {
 		RateTimeConfigurer ratimeConfigurer = rateTimeCreatingBeanFactory.getConfigurerFactory().getRatimeConfigurer(
 					serviceName);
@@ -56,7 +55,6 @@ public abstract class AbstractTimeLimiterExecutor implements TimeLimiterExecutor
 	/**
 	 * 超时控制实现方法
 	 */
-	@Override
 	public <T> T invokeByLimitTime(String serviceName, final RateTimeServiceCallBack<T> callBack) {
 		//超时后处理类
 		RateTimeLimiterInvoker invoker = rateTimeCreatingBeanFactory.createLimiterInvoker(
@@ -85,7 +83,7 @@ public abstract class AbstractTimeLimiterExecutor implements TimeLimiterExecutor
 						false);
 		} catch (Exception e) {
 			logger.error("invokeByLimitTime was error : " + e.getMessage());
-			String errsmg = GetterUtil.getString(e.getMessage(), "invokeByLimitTime");
+			String errsmg = e.getMessage();
 			result = invoker.invokehandler(errsmg);
 		}
 
@@ -99,7 +97,6 @@ public abstract class AbstractTimeLimiterExecutor implements TimeLimiterExecutor
 			this.callBack = callBack;
 		}
 
-		@Override
 		public T call() throws Exception {
 			return callBack.invoker();
 		}

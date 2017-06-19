@@ -5,12 +5,10 @@
  */
 package com.ailing.ratetimelimiter.util;
 
-import java.text.MessageFormat;
-
+import com.ailing.ratetimelimiter.exception.RatimeLimiterException;
 import org.apache.commons.lang.StringUtils;
 
-import com.ailing.ratetimelimiter.exception.RatimeLimiterException;
-import com.hs.common.utils.GetterUtil;
+import java.text.MessageFormat;
 
 /**
  *
@@ -68,9 +66,9 @@ public final class PreconditionUtil {
 		}
 
 		if (combineStackTraces) {
-			StackTraceElement[] combined = GetterUtil.concat(cause.getStackTrace(),
+			/*StackTraceElement[] combined = StringUtils.(cause.getStackTrace(),
 					e.getStackTrace(), StackTraceElement.class);
-			cause.setStackTrace(combined);
+			cause.setStackTrace(combined);*/
 		}
 
 		if (cause instanceof Exception) {

@@ -45,7 +45,6 @@ public class RateTimeLimiterAspect implements ApplicationContextAware {
         RateTimelimitConfigurerProvider configurerProvider = rateTimeCreatingBeanFactory.getConfigurerProvider(ratelimit.configurer());
         configurerFactory.config(ratelimit.serviceName(), configurerProvider,
             new AspectRateTimeProvider() {
-                @Override
                 public AspectRateTime create(String serviceName) {
                     return builder(ratelimit);
                 }
@@ -61,7 +60,6 @@ public class RateTimeLimiterAspect implements ApplicationContextAware {
             this.point = point;
         }
 
-        @Override
         public Object invoker() throws Exception {
             return JoinPointUtils.process(point);
         }
@@ -84,7 +82,6 @@ public class RateTimeLimiterAspect implements ApplicationContextAware {
         return ratimelimitConfig;
     }
 
-    @Override
     public void setApplicationContext(ApplicationContext paramApplicationContext)
         throws BeansException {
         this.applicationContext = paramApplicationContext;

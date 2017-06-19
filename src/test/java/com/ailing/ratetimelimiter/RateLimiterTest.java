@@ -4,15 +4,9 @@
  */
 package com.ailing.ratetimelimiter;
 
-import org.databene.contiperf.PerfTest;
-import org.databene.contiperf.junit.ContiPerfRule;
-import org.databene.contiperf.junit.ParallelRunner;
-
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
-import org.junit.runner.RunWith;
+import javax.annotation.Resource;
 
 
 /**
@@ -22,25 +16,19 @@ import org.junit.runner.RunWith;
  * @author mayuanchao
  * @version 1.0
  */
-@RunWith(ParallelRunner.class)
 public class RateLimiterTest extends BaseTest {
+    @Resource(name = "rateLimiterMock")
     private RateLimiterMock rateLimiterMock;
-    @Rule
-    public ContiPerfRule rule = new ContiPerfRule();
 
-    @Before
-    public void setup() {
-        rateLimiterMock = (RateLimiterMock) getBean("rateLimiterMock");
-    }
-
-    @PerfTest(invocations = 1000, threads = 10)
     @Test
     public void testRate() {
-        rateLimiterMock.rateLimitTest("ok~~~~~~~~~~");
-
-        rateLimiterMock.rateLimitTest1("ok1~~~~~~~~~~");
-        //rateLimiterMock.rateLimitTest1("ok1~~~~~~~~~~");
-        //testRate1();
+        rateLimiterMock.rateLimitTest("ok1~~~~~~~~~~");
+        rateLimiterMock.rateLimitTest("ok2~~~~~~~~~~");
+        rateLimiterMock.rateLimitTest("ok3~~~~~~~~~~");
+        rateLimiterMock.rateLimitTest("ok4~~~~~~~~~~");
+        rateLimiterMock.rateLimitTest("ok5~~~~~~~~~~");
+        rateLimiterMock.rateLimitTest("ok6~~~~~~~~~~");
+        rateLimiterMock.rateLimitTest("ok7~~~~~~~~~~");
     }
 
     public void testRate1() {

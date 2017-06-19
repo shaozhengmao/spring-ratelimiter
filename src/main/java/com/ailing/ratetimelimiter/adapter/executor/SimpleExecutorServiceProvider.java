@@ -1,5 +1,9 @@
 package com.ailing.ratetimelimiter.adapter.executor;
 
+import com.ailing.ratetimelimiter.adapter.ExecutorServiceProvider;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -7,11 +11,6 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
-
-import com.ailing.ratetimelimiter.adapter.ExecutorServiceProvider;
 
 
 /**
@@ -28,13 +27,11 @@ public class SimpleExecutorServiceProvider implements ExecutorServiceProvider {
 		executor = Executors.newCachedThreadPool(new NamedThreadFactory("LimitTimePoolProvider"));
 	}
 	
-	@Override
 	public ExecutorService getExecutor() {
 		return executor;
 	}
 
 	class ExecutionRejectedHandler implements RejectedExecutionHandler {
-		@Override
 		public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
 			logger.warn("ExecutorServiceProvider Task[" + r.toString() + "] rejected by executor :" + executor.toString());
 			throw new RejectedExecutionException();

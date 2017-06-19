@@ -14,5 +14,5 @@ package com.ailing.ratetimelimiter.config;
  * @version 1.0
  */
 public interface AspectRateTimeProvider {
-	public AspectRateTime create(String serviceName);
+	AspectRateTime create(String serviceName);
 }

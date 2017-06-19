@@ -32,7 +32,6 @@ public class RateTimeServiceExecutorAdapter implements RateTimeServiceExecutor {
 	@Autowired
 	private RateTimeCreatingBeanFactory rateTimeCreatingBeanFactory;
 
-	@Override
 	public <T> T execute(String serviceName, RateTimeServiceCallBack<T> callBack)
 		throws Exception {
 		T retVal = null;

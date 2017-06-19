@@ -115,7 +115,6 @@ public class RateTimeCreatingBeanFactory implements ApplicationContextAware {
 		return context;
 	}
 
-	@Override
 	public void setApplicationContext(ApplicationContext context)
 		throws BeansException {
 		this.context = context;

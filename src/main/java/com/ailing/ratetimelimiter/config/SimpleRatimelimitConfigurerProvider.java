@@ -5,15 +5,14 @@
  */
 package com.ailing.ratetimelimiter.config;
 
-import java.util.concurrent.TimeUnit;
-
-import org.springframework.stereotype.Component;
-
 import com.ailing.ratetimelimiter.YdtRateLimiter;
 import com.ailing.ratetimelimiter.adapter.executor.RateLimiterExecutorImpl;
 import com.ailing.ratetimelimiter.adapter.executor.SimpleExecutorServiceProvider;
 import com.ailing.ratetimelimiter.adapter.executor.SimpleTimeLimiterExecutor;
 import com.google.common.util.concurrent.RateLimiter;
+import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -25,7 +24,6 @@ import com.google.common.util.concurrent.RateLimiter;
  */
 @Component
 public class SimpleRatimelimitConfigurerProvider extends AbstractRatimelimitConfigurerProvider {
-	@Override
 	public void updateConfig(RateTimeConfigurer rateTimeConfigurer) {
 
 		if (rateTimeConfigurer.getRateTimeClazzBean() == null) {
@@ -41,7 +39,6 @@ public class SimpleRatimelimitConfigurerProvider extends AbstractRatimelimitConf
 		rateTimeClassBean.setClazzTimeLimiterExecutor(SimpleTimeLimiterExecutor.class);
 		rateTimeClassBean.setClazzRateLimiterExecutor(RateLimiterExecutorImpl.class);
 	}
-	@Override
 	public YdtRateLimiter getYdtRateLimiter() {
 		return new AiRateLimiter();
 	}

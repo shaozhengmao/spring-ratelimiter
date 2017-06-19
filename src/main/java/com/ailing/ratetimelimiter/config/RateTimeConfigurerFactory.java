@@ -8,6 +8,7 @@ package com.ailing.ratetimelimiter.config;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,7 @@ import static com.ailing.ratetimelimiter.util.PreconditionUtil.checkNotNull;
 @Component
 public class RateTimeConfigurerFactory {
 	protected final Logger logger = Logger.getLogger(getClass());
-	private final Map<String, RateTimeConfigurer> ratimeConfigurers = Collections.synchronizedMap(new HashMap<String, RateTimeConfigurer>());
+	private final Map<String, RateTimeConfigurer> ratimeConfigurers = new ConcurrentHashMap<String, RateTimeConfigurer>()/* Collections.synchronizedMap(new HashMap<String, RateTimeConfigurer>())*/;
 
 	/**
 	 * 配置对应的配置

@@ -5,11 +5,13 @@
  */
 package com.ailing.ratetimelimiter;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
@@ -18,36 +20,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author mayuanchao
  * @version 1.0
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:spring-test.xml"})
 public class BaseTest {
-	private static ApplicationContext context;
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		if (context == null) {
-			context = new ClassPathXmlApplicationContext(new String[] { "classpath:spring/spring.xml" });
-
-			Logger log = Logger.getLogger("com.ailing");
-			log.setLevel(Level.DEBUG);
-
-			Logger logRoot = Logger.getRootLogger();
-			logRoot.setLevel(Level.WARN);
-		}
+	@Before
+	public void before(){
+		logger.info("before test...");
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	public void setUp() throws Exception {
-	}
-
-	protected static Object getBean(String beanName) {
-		return context.getBean(beanName);
-	}
-
-	protected static <T> T getBean(Class<T> clz) {
-		return context.getBean(clz);
+	@After
+	public void after(){
+		logger.info("after test...");
 	}
 }

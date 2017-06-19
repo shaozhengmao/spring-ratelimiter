@@ -5,21 +5,19 @@
  */
 package com.ailing.ratetimelimiter.adapter.executor;
 
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.ailing.ratetimelimiter.YdtRateLimiter;
 import com.ailing.ratetimelimiter.adapter.RateLimiterExecutor;
 import com.ailing.ratetimelimiter.config.RateConfig;
 import com.ailing.ratetimelimiter.config.RateLimitState;
 import com.ailing.ratetimelimiter.config.RateTimeConfigurer;
 import com.ailing.ratetimelimiter.config.RateTimeConfigurerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  *限流实现类
@@ -30,7 +28,7 @@ import com.ailing.ratetimelimiter.config.RateTimeConfigurerFactory;
  */
 @Component
 public class RateLimiterExecutorImpl implements RateLimiterExecutor {
-	private static Map<String, YdtRateLimiter> allRateLimiter = Collections.synchronizedMap(new HashMap<String, YdtRateLimiter>());
+	private static Map<String, YdtRateLimiter> allRateLimiter = new ConcurrentHashMap<String, YdtRateLimiter>() /*Collections.synchronizedMap(new HashMap<String, YdtRateLimiter>())*/;
 	
 	@Autowired
 	private RateTimeConfigurerFactory configurerFactory;
@@ -38,7 +36,6 @@ public class RateLimiterExecutorImpl implements RateLimiterExecutor {
 	//50毫秒的缓存期
 	private static final long WARM_UP_PERIOD = 50L;
 
-	@Override
 	public boolean isLimitOpen(String serviceName) {
 		RateTimeConfigurer ratimeConfigurer = configurerFactory.getRatimeConfigurer(serviceName);
 
@@ -76,7 +73,6 @@ public class RateLimiterExecutorImpl implements RateLimiterExecutor {
 		return null;
 	}
 
-	@Override
 	public RateLimitState tryAcquire(String serviceName) {
 		RateLimitState retState = RateLimitState.CLOSED;
 		YdtRateLimiter rateLimiter  = create(serviceName);
@@ -88,7 +84,6 @@ public class RateLimiterExecutorImpl implements RateLimiterExecutor {
 		return retState;
 	}
 
-	@Override
 	public RateLimitState tryAcquire(String serviceName, int permits) {
 		RateLimitState retState = RateLimitState.CLOSED;
 		YdtRateLimiter rateLimiter  = create(serviceName);
@@ -101,7 +96,6 @@ public class RateLimiterExecutorImpl implements RateLimiterExecutor {
 		return retState;
 	}
 
-	@Override
 	public RateLimitState tryAcquire(String serviceName, long timeout, TimeUnit unit) {
 		RateLimitState retState = RateLimitState.CLOSED;
 		YdtRateLimiter rateLimiter  = create(serviceName);
@@ -114,7 +108,6 @@ public class RateLimiterExecutorImpl implements RateLimiterExecutor {
 		return retState;
 	}
 
-	@Override
 	public RateLimitState tryAcquire(String serviceName, int permits, long timeout, TimeUnit unit) {
 		RateLimitState retState = RateLimitState.CLOSED;
 		YdtRateLimiter rateLimiter  = create(serviceName);
@@ -127,7 +120,6 @@ public class RateLimiterExecutorImpl implements RateLimiterExecutor {
 		return retState;
 	}
 
-	@Override
 	public void acquire(String serviceName) {
 		YdtRateLimiter rateLimiter  = create(serviceName);
 
@@ -137,7 +129,6 @@ public class RateLimiterExecutorImpl implements RateLimiterExecutor {
 		}
 	}
 
-	@Override
 	public void acquire(String serviceName, int permits) {
 		YdtRateLimiter rateLimiter  = create(serviceName);
 

@@ -16,7 +16,6 @@ import com.ailing.ratetimelimiter.adapter.RateTimeLimiterInvoker;
  */
 public abstract class AbstractRatimelimitConfigurerProvider implements RateTimelimitConfigurerProvider {
 	
-	@Override
 	public RateTimeConfigurer create(String serviceName,AspectRateTimeProvider aspectProvider,Class<? extends RateTimeLimiterInvoker> invoker) {
 		AspectRateTime aspect = aspectProvider.create(serviceName);
 		RateTimeConfigurer rateTimeConfigurer = new RateTimeConfigurer();
