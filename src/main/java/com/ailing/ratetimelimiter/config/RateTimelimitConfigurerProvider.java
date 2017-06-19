@@ -16,9 +16,9 @@ import com.ailing.ratetimelimiter.adapter.RateTimeLimiterInvoker;
  * @version 1.0
  */
 public interface RateTimelimitConfigurerProvider {
-	public RateTimeConfigurer create(String serviceName, AspectRateTimeProvider aspectProvider,Class<? extends RateTimeLimiterInvoker> invoker);
+	RateTimeConfigurer create(String serviceName, AspectRateTimeProvider aspectProvider,Class<? extends RateTimeLimiterInvoker> invoker);
 
-	public void updateConfig(RateTimeConfigurer rateTimeConfigurer);
+	void updateConfig(RateTimeConfigurer rateTimeConfigurer);
 	
-	public YdtRateLimiter getYdtRateLimiter();
+	YdtRateLimiter getYdtRateLimiter();
 }
