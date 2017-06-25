@@ -26,7 +26,7 @@ public abstract class AbstractRatimelimitConfigurerProvider implements RateTimel
 			rateTimeConfigurer = config(aspect);
 		}
 		// 可以读库去更新
-		//updateConfig(rateTimeConfigurer);
+		updateConfig(rateTimeConfigurer);
 		
 		return rateTimeConfigurer;
 	}
