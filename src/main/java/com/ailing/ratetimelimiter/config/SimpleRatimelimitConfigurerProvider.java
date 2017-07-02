@@ -30,9 +30,6 @@ public class SimpleRatimelimitConfigurerProvider extends AbstractRatimelimitConf
 			rateTimeConfigurer.setRateTimeClazzBean(new RateTimeClassBean());
 		}
 
-		if(rateTimeConfigurer.getRateTimeClazzBean() == null){
-			rateTimeConfigurer.setRateTimeClazzBean(new RateTimeClassBean());
-		}
 		RateTimeClassBean rateTimeClassBean = rateTimeConfigurer.getRateTimeClazzBean();
 		rateTimeClassBean.setClazzConfigurerProvider(this.getClass());
 		rateTimeClassBean.setClazzExecutorServiceProvider(SimpleExecutorServiceProvider.class);
