@@ -20,7 +20,7 @@ public class SimpleRateTimeLimiterInvoker implements RateTimeLimiterInvoker {
 	protected final Logger logger = Logger.getLogger(getClass());
 
 	public <T> T invokehandler(Object param) {
-		
+		System.out.println("限流...");
 		return null;
 	}
 

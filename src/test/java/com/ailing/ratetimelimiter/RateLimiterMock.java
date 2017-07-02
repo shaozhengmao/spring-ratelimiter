@@ -8,8 +8,6 @@ package com.ailing.ratetimelimiter;
 
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  *
  * @FileName  RateLimiterMock.java
@@ -23,11 +21,11 @@ public class RateLimiterMock {
 	@RateTimeLimit(serviceName = "test", limitRate = true , refreshCfg=false, permits = 4)
 	public void rateLimitTest(String param) {
 
-		try {
+		/*try {
 			TimeUnit.MILLISECONDS.sleep(300);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		System.err.println(param);
 
 		// throw new RuntimeException("ee");

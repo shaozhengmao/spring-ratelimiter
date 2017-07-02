@@ -54,7 +54,7 @@ public @interface RateTimeLimit {
      */
     boolean refreshCfg() default true;
     /**
-     * 限流或者开启超时机制处理类
+     * 限流制处理类
      * @return
      */
     Class<?extends RateTimeLimiterInvoker> invoker() default SimpleRateTimeLimiterInvoker.class;
