@@ -69,14 +69,10 @@ public class RateTimeLimiterAspect implements ApplicationContextAware {
         AspectRateTime ratimelimitConfig = new AspectRateTime(ratelimit.serviceName());
         ratimelimitConfig.setPermits(ratelimit.permits());
         ratimelimitConfig.setRateCronExpr(ratelimit.rateCronExpr());
-        ratimelimitConfig.setTimerCronExpr(ratelimit.timerCronExpr());
         ratimelimitConfig.setRateDelay(ratelimit.rateDelay());
-        ratimelimitConfig.setTimeDelay(ratelimit.timeDelay());
         ratimelimitConfig.setInvoker(ratelimit.invoker());
         ratimelimitConfig.setIntervalTime(ratelimit.intervalTime());
         ratimelimitConfig.setLimitRate(ratelimit.limitRate());
-        ratimelimitConfig.setLimitTimer(ratelimit.limitTimer());
-        ratimelimitConfig.setMaxLiveTime(ratelimit.maxLiveTime());
         ratimelimitConfig.setRefreshCfg(ratelimit.refreshCfg());
         ratimelimitConfig.setConfigurer(ratelimit.configurer());
         return ratimelimitConfig;

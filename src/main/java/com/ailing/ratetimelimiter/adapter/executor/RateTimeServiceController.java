@@ -5,22 +5,21 @@
  */
 package com.ailing.ratetimelimiter.adapter.executor;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Service;
-
 import com.ailing.ratetimelimiter.RateTimeCreatingBeanFactory;
 import com.ailing.ratetimelimiter.adapter.RateLimiterExecutor;
 import com.ailing.ratetimelimiter.adapter.RateTimeLimiterInvoker;
 import com.ailing.ratetimelimiter.adapter.RateTimeServiceCallBack;
 import com.ailing.ratetimelimiter.adapter.RateTimeServiceExecutor;
-import com.ailing.ratetimelimiter.adapter.TimeLimiterExecutor;
 import com.ailing.ratetimelimiter.config.AspectRateTimeProvider;
 import com.ailing.ratetimelimiter.config.RateLimitState;
 import com.ailing.ratetimelimiter.config.RateTimeConfigurerFactory;
 import com.ailing.ratetimelimiter.config.RateTimelimitConfigurerProvider;
-import static com.ailing.ratetimelimiter.util.PreconditionUtil.*;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+
+import static com.ailing.ratetimelimiter.util.PreconditionUtil.checkNotNull;
 /**
  *该服务用于不适用注解的形式下，直接调用该服务来实现限流和超时机制
  * @FileName  RateTimeServiceController.java
@@ -89,38 +88,6 @@ public class RateTimeServiceController {
 		}
 
 		return retVal;
-	}
-
-	/**
-	 * 单独针对超时机制接口
-	 * @param serviceName
-	 * @param callBack
-	 * @param aspectProvider
-	 * @return
-	 * @throws Exception
-	 */
-	public <T> T timeLimiterExecute(String serviceName, RateTimeServiceCallBack<T> callBack,
-		AspectRateTimeProvider aspectProvider, RateTimeLimiterInvoker invoker)
-		throws Exception {
-		TimeLimiterExecutor timeLimiterExecutor = getTimeLimiterExecutor(serviceName, callBack,
-				aspectProvider, invoker);
-
-		return timeLimiterExecutor.invokeByLimitTime(serviceName, callBack);
-	}
-
-	/**
-	 * 获取超时机制执行者
-	 * @param serviceName
-	 * @param callBack
-	 * @param aspectProvider
-	 * @return
-	 */
-	public <T> TimeLimiterExecutor getTimeLimiterExecutor(String serviceName,
-		RateTimeServiceCallBack<T> callBack, AspectRateTimeProvider aspectProvider,
-		RateTimeLimiterInvoker invoker) {
-		initConfig(serviceName, callBack, aspectProvider, invoker);
-
-		return rateTimeCreatingBeanFactory.getTimeLimiterExecutor(serviceName);
 	}
 
 	/**

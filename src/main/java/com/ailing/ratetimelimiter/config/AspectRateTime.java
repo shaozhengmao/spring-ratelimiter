@@ -29,38 +29,20 @@ public class AspectRateTime implements java.io.Serializable {
 	 */
 	private int rateDelay;
 	/**
-	 * 超时机制 延迟时间
-	 */
-	private int timeDelay;
-	/**
 	 * 限流时间段
 	 */
 	private String rateCronExpr;
-	/**
-	 * 超时机制时间段
-	 */
-	private String timerCronExpr;
 	/**
 	 * 超时或者超过限流数出来类
 	 * 默认为 SimpleRateTimeLimiterInvoker
 	 */
 	private Class<?extends RateTimeLimiterInvoker> invoker = SimpleRateTimeLimiterInvoker.class;
-	/**
-	 * 超时机制开关
-	 */
-	private boolean limitTimer;
-	
+
 	/**
 	 * 限流开关
 	 */
 	private boolean limitRate;
 
-	/**
-	 * 超时时间
-	 * 默认是毫秒 
-	 */
-	private long maxLiveTime;
-	
 	/**
 	 * 更新配置时间
 	 */
@@ -131,28 +113,12 @@ public class AspectRateTime implements java.io.Serializable {
 		this.rateDelay = rateDelay;
 	}
 
-	public int getTimeDelay() {
-		return timeDelay;
-	}
-
-	public void setTimeDelay(int timeDelay) {
-		this.timeDelay = timeDelay;
-	}
-
 	public String getRateCronExpr() {
 		return rateCronExpr;
 	}
 
 	public void setRateCronExpr(String rateCronExpr) {
 		this.rateCronExpr = rateCronExpr;
-	}
-
-	public String getTimerCronExpr() {
-		return timerCronExpr;
-	}
-
-	public void setTimerCronExpr(String timerCronExpr) {
-		this.timerCronExpr = timerCronExpr;
 	}
 
 	public Class<?extends RateTimeLimiterInvoker> getInvoker() {
@@ -163,28 +129,12 @@ public class AspectRateTime implements java.io.Serializable {
 		this.invoker = invoker;
 	}
 
-	public boolean isLimitTimer() {
-		return limitTimer;
-	}
-
-	public void setLimitTimer(boolean limitTimer) {
-		this.limitTimer = limitTimer;
-	}
-
 	public boolean isLimitRate() {
 		return limitRate;
 	}
 
 	public void setLimitRate(boolean limitRate) {
 		this.limitRate = limitRate;
-	}
-
-	public long getMaxLiveTime() {
-		return maxLiveTime;
-	}
-
-	public void setMaxLiveTime(long maxLiveTime) {
-		this.maxLiveTime = maxLiveTime;
 	}
 
 	public long getIntervalTime() {

@@ -8,7 +8,6 @@ package com.ailing.ratetimelimiter.config;
 import com.ailing.ratetimelimiter.YdtRateLimiter;
 import com.ailing.ratetimelimiter.adapter.executor.RateLimiterExecutorImpl;
 import com.ailing.ratetimelimiter.adapter.executor.SimpleExecutorServiceProvider;
-import com.ailing.ratetimelimiter.adapter.executor.SimpleTimeLimiterExecutor;
 import com.google.common.util.concurrent.RateLimiter;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +32,6 @@ public class SimpleRatimelimitConfigurerProvider extends AbstractRatimelimitConf
 		RateTimeClassBean rateTimeClassBean = rateTimeConfigurer.getRateTimeClazzBean();
 		rateTimeClassBean.setClazzConfigurerProvider(this.getClass());
 		rateTimeClassBean.setClazzExecutorServiceProvider(SimpleExecutorServiceProvider.class);
-		rateTimeClassBean.setClazzTimeLimiterExecutor(SimpleTimeLimiterExecutor.class);
 		rateTimeClassBean.setClazzRateLimiterExecutor(RateLimiterExecutorImpl.class);
 	}
 	public YdtRateLimiter getYdtRateLimiter() {

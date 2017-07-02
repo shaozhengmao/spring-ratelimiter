@@ -29,34 +29,15 @@ public @interface RateTimeLimit {
      */
     String serviceName();
     /**
-     * 超时最大时间 单位是毫秒
-     */
-    long maxLiveTime() default 1000L;
-    /**
      *限流延迟 单位分钟
      * @return
      */
     int rateDelay() default 10;
     /**
-     * 超时延迟时间  单位是分钟
-     * @return
-     */
-    int timeDelay() default 10;
-    /**
      * 限流时间段
      * @return
      */
     String rateCronExpr() default "";
-    /**
-     * 超时时间段
-     * @return
-     */
-    String timerCronExpr() default "";
-    /**
-     * 是否打开超时机制
-     * @return
-     */
-    boolean limitTimer() default false;
     /**
      * 是否打开限流措施
      * @return

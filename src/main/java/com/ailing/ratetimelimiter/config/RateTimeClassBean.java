@@ -9,7 +9,6 @@ package com.ailing.ratetimelimiter.config;
 import com.ailing.ratetimelimiter.adapter.ExecutorServiceProvider;
 import com.ailing.ratetimelimiter.adapter.RateLimiterExecutor;
 import com.ailing.ratetimelimiter.adapter.RateTimeLimiterInvoker;
-import com.ailing.ratetimelimiter.adapter.TimeLimiterExecutor;
 
 /**
  * 管理相关的bean
@@ -26,26 +25,23 @@ public class RateTimeClassBean implements java.io.Serializable {
 	private Class<? extends RateTimeLimiterInvoker> clazzInvoker;
 	/***************************** **********************************/
 	private Class<? extends RateTimelimitConfigurerProvider> clazzConfigurerProvider;
-	private Class<? extends TimeLimiterExecutor> clazzTimeLimiterExecutor;
 	private Class<? extends RateLimiterExecutor> clazzRateLimiterExecutor;
 	private Class<? extends ExecutorServiceProvider> clazzExecutorServiceProvider;
 
 	public RateTimeClassBean(){}
 	
 	public RateTimeClassBean(Class<?extends RateTimeLimiterInvoker> clazzInvoker){
-		this(null, clazzInvoker, null, null, null);
+		this(null, clazzInvoker, null, null);
 	}
 	
 	public RateTimeClassBean(
 			Class<?extends RateTimelimitConfigurerProvider> clazzConfigurerProvider,
 			Class<?extends RateTimeLimiterInvoker> clazzInvoker,
 			Class<?extends RateLimiterExecutor> clazzRateLimiterExecutor,
-			Class<?extends TimeLimiterExecutor> clazzTimeLimiterExecutor,
 			Class<?extends ExecutorServiceProvider> clazzExecutorServiceProvider){
 		this.clazzConfigurerProvider = clazzConfigurerProvider;
 		this.clazzInvoker = clazzInvoker;
 		this.clazzRateLimiterExecutor = clazzRateLimiterExecutor;
-		this.clazzTimeLimiterExecutor = clazzTimeLimiterExecutor;
 		this.clazzExecutorServiceProvider = clazzExecutorServiceProvider;
 	}
 	
@@ -64,15 +60,6 @@ public class RateTimeClassBean implements java.io.Serializable {
 	public void setClazzConfigurerProvider(
 		Class<?extends RateTimelimitConfigurerProvider> clazzConfigurerProvider) {
 		this.clazzConfigurerProvider = clazzConfigurerProvider;
-	}
-
-	public Class<?extends TimeLimiterExecutor> getClazzTimeLimiterExecutor() {
-		return clazzTimeLimiterExecutor;
-	}
-
-	public void setClazzTimeLimiterExecutor(
-		Class<?extends TimeLimiterExecutor> clazzTimeLimiterExecutor) {
-		this.clazzTimeLimiterExecutor = clazzTimeLimiterExecutor;
 	}
 
 	public Class<?extends RateLimiterExecutor> getClazzRateLimiterExecutor() {

@@ -5,6 +5,15 @@
  */
 package com.ailing.ratetimelimiter;
 
+import com.ailing.ratetimelimiter.adapter.ExecutorServiceProvider;
+import com.ailing.ratetimelimiter.adapter.RateLimiterExecutor;
+import com.ailing.ratetimelimiter.adapter.RateTimeLimiterInvoker;
+import com.ailing.ratetimelimiter.config.RateTimeClassBean;
+import com.ailing.ratetimelimiter.config.RateTimeConfigurer;
+import com.ailing.ratetimelimiter.config.RateTimeConfigurerFactory;
+import com.ailing.ratetimelimiter.config.RateTimelimitConfigurerProvider;
+import com.ailing.ratetimelimiter.config.SimpleRateTimeLimiterInvoker;
+import com.ailing.ratetimelimiter.exception.RatimeLimiterException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import com.ailing.ratetimelimiter.adapter.ExecutorServiceProvider;
-import com.ailing.ratetimelimiter.adapter.RateLimiterExecutor;
-import com.ailing.ratetimelimiter.adapter.RateTimeLimiterInvoker;
-import com.ailing.ratetimelimiter.adapter.TimeLimiterExecutor;
-import com.ailing.ratetimelimiter.config.RateTimeClassBean;
-import com.ailing.ratetimelimiter.config.RateTimeConfigurer;
-import com.ailing.ratetimelimiter.config.RateTimeConfigurerFactory;
-import com.ailing.ratetimelimiter.config.RateTimelimitConfigurerProvider;
-import com.ailing.ratetimelimiter.config.SimpleRateTimeLimiterInvoker;
-import com.ailing.ratetimelimiter.exception.RatimeLimiterException;
-import static com.ailing.ratetimelimiter.util.PreconditionUtil.*;
+import static com.ailing.ratetimelimiter.util.PreconditionUtil.checkNotNull;
 /**
  *
  *限流和超时机制bean工厂
@@ -59,17 +58,6 @@ public class RateTimeCreatingBeanFactory implements ApplicationContextAware {
 		RateTimeClassBean rateTimeClassBean = ratimeConfigurer.getRateTimeClazzBean();
 		checkNotNull(ratimeConfigurer, "expected a non-null RateTimeClassBean");
 		return rateTimeClassBean;
-	}
-
-
-	public TimeLimiterExecutor getTimeLimiterExecutor(String serviceName) {
-		RateTimeClassBean rateTimeClassBean = getRateTimeClassBean(serviceName);
-		TimeLimiterExecutor timeLimiterExecutor =
-				context.getBean(rateTimeClassBean.getClazzTimeLimiterExecutor());
-		checkNotNull(
-				timeLimiterExecutor,
-				"expected a non-null TimeLimiterExecutor");
-		return timeLimiterExecutor;
 	}
 
 	public RateLimiterExecutor getRateLimiterExecutor(String serviceName) {

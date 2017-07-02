@@ -37,9 +37,6 @@ public abstract class AbstractRatimelimitConfigurerProvider implements RateTimel
 				aspect.getRateDelay(), aspect.getRateCronExpr());
 		ratimeConfigurer.setRateConfig(rateConfig);
 
-		TimeConfig timeConfig = new TimeConfig(aspect.isLimitTimer(), aspect.getMaxLiveTime(),
-				aspect.getTimeDelay(), aspect.getTimerCronExpr());
-		ratimeConfigurer.setTimeConfig(timeConfig);
 		ratimeConfigurer.setIntervalTime(aspect.getIntervalTime());
 		RateTimeClassBean rateTimeClassBean = new RateTimeClassBean(aspect.getInvoker());
 		ratimeConfigurer.setRateTimeClazzBean(rateTimeClassBean);

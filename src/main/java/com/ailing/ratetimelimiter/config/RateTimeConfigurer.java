@@ -5,14 +5,14 @@
  */
 package com.ailing.ratetimelimiter.config;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.quartz.CronExpression;
 import org.springframework.beans.BeanUtils;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
 
 /**
  * 各配置信息成员，包括自己刷新，定时等
@@ -31,12 +31,7 @@ public class RateTimeConfigurer implements java.io.Serializable {
 	 * 限流配置参数
 	 */
 	private RateConfig rateConfig;
-	
-	/**
-	 * 超时机制配置参数
-	 */
-	private TimeConfig timeConfig;
-	
+
 	/**
 	 * AspectRateTime 参数提供者
 	 */
@@ -56,11 +51,6 @@ public class RateTimeConfigurer implements java.io.Serializable {
 	 * 是否打开限流
 	 */
 	private boolean limitRate;
-
-	/**
-	 * 是否打开超时机制
-	 */
-	private boolean limitTimer;
 
 	/**
 	 * 是否定时更新配置
@@ -105,33 +95,6 @@ public class RateTimeConfigurer implements java.io.Serializable {
 			return false; 
 		}
 				
-		//开关是否打开,否设置特定时间
-		if (isLimitOpen && (cronExpression != null)) {
-			Date currentDate = Calendar.getInstance().getTime();
-			Date cronNextDate = cronExpression.getNextValidTimeAfter(currentDate);
-
-			Date startDate = DateUtils.addMinutes(cronNextDate, -(startDelay / 2));
-			Date endDate = DateUtils.addMinutes(cronNextDate, startDelay);
-
-			if ((currentDate.compareTo(startDate) > -1) && (currentDate.compareTo(endDate) < 0)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	
-	/**
-	 * 判断是否开启超时机制
-	 * @return
-	 */
-	public boolean isOpenTimeLimit() {
-		boolean isLimitOpen = timeConfig.isRelease();
-		int startDelay = timeConfig.getStartDelay();
-		CronExpression cronExpression = timeConfig.getCronExpression();
-		if (isLimitOpen && (cronExpression == null)) {
-			return true;
-		}
 		//开关是否打开,否设置特定时间
 		if (isLimitOpen && (cronExpression != null)) {
 			Date currentDate = Calendar.getInstance().getTime();
@@ -209,7 +172,6 @@ public class RateTimeConfigurer implements java.io.Serializable {
 			long newInterval = newConfig.getIntervalTime();
 			long oldInterval = this.getIntervalTime();
 			BeanUtils.copyProperties(newConfig.getRateConfig(), this.getRateConfig());
-			BeanUtils.copyProperties(newConfig.getTimeConfig(), this.getTimeConfig());
 
 			if (newInterval != oldInterval) {
 				timerShutDown();
@@ -245,11 +207,6 @@ public class RateTimeConfigurer implements java.io.Serializable {
 		return limitRate;
 	}
 
-	public boolean isLimitTimer() {
-		this.limitTimer = isOpenTimeLimit();
-		return limitTimer;
-	}
-	
 	public RateTimeTimerTask getRatimeTask() {
 		return ratimeTask;
 	}
@@ -286,14 +243,6 @@ public class RateTimeConfigurer implements java.io.Serializable {
 		this.rateConfig = rateConfig;
 	}
 
-	public TimeConfig getTimeConfig() {
-		return timeConfig;
-	}
-
-	public void setTimeConfig(TimeConfig timeConfig) {
-		this.timeConfig = timeConfig;
-	}
-
 	public String getServiceName() {
 		return serviceName;
 	}
@@ -308,10 +257,6 @@ public class RateTimeConfigurer implements java.io.Serializable {
 
 	public void setIntervalTime(long intervalTime) {
 		this.intervalTime = intervalTime;
-	}
-
-	public void setLimitTimer(boolean limitTimer) {
-		this.limitTimer = limitTimer;
 	}
 
 	public boolean isRefreshCfg() {
